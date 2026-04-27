@@ -1,0 +1,259 @@
+---
+// Navbar Component
+---
+
+<nav class="navbar glass" id="navbar" role="navigation" aria-label="Ana navigasyon">
+  <div class="nav-container container">
+    <a href="#hero" class="nav-logo" aria-label="Ana sayfa">
+      <span class="logo-bracket">&lt;</span>
+      <span class="logo-text">HA</span>
+      <span class="logo-bracket">/&gt;</span>
+    </a>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menüyü aç/kapat" aria-expanded="false">
+      <span class="hamburger"></span>
+    </button>
+
+    <div class="nav-menu" id="nav-menu" role="menubar">
+      <a href="#projeler" class="nav-link" role="menuitem">Projeler</a>
+      <a href="#yetenekler" class="nav-link" role="menuitem">Yetenekler</a>
+      <a href="#deneyim" class="nav-link" role="menuitem">Deneyim</a>
+      <a href="#egitim" class="nav-link" role="menuitem">Eğitim</a>
+      <a href="#hobiler" class="nav-link" role="menuitem">Hobiler</a>
+      <a href="#iletisim" class="nav-link" role="menuitem">İletişim</a>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn-icon theme-toggle" id="theme-toggle" aria-label="Temayı değiştir" title="Açık/Koyu mod">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<script is:inline>
+  // Theme Toggle
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  // Mobile Menu Toggle
+  document.getElementById('nav-toggle').addEventListener('click', () => {
+    const toggle = document.getElementById('nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', !isOpen);
+    menu.classList.toggle('open');
+    toggle.classList.toggle('active');
+  });
+
+  // Close menu on link click
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('nav-menu').classList.remove('open');
+      document.getElementById('nav-toggle').classList.remove('active');
+      document.getElementById('nav-toggle').setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Navbar scroll effect
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+    const current = window.scrollY;
+    if (current > 60) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+    lastScroll = current;
+  });
+</script>
+
+<style>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-nav);
+    padding: 1rem 0;
+    transition: all var(--transition-base);
+    background: transparent;
+    backdrop-filter: none;
+    border: none;
+  }
+
+  .navbar.scrolled {
+    background: var(--bg-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--bg-glass-border);
+    padding: 0.75rem 0;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.125rem;
+    transition: all var(--transition-fast);
+  }
+
+  .nav-logo:hover {
+    color: var(--accent-primary);
+  }
+
+  .logo-bracket {
+    color: var(--accent-primary);
+  }
+
+  .logo-text {
+    color: var(--text-primary);
+  }
+
+  .nav-logo:hover .logo-text {
+    color: var(--accent-primary);
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    text-decoration: none;
+  }
+
+  .nav-link:hover {
+    color: var(--accent-primary);
+    background: rgba(102, 126, 234, 0.08);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* Theme Toggle Icons */
+  .theme-toggle {
+    position: relative;
+  }
+
+  [data-theme="dark"] .icon-sun {
+    display: block;
+  }
+
+  [data-theme="dark"] .icon-moon {
+    display: none;
+  }
+
+  [data-theme="light"] .icon-sun,
+  :root:not([data-theme]) .icon-sun {
+    display: none;
+  }
+
+  [data-theme="light"] .icon-moon,
+  :root:not([data-theme]) .icon-moon {
+    display: block;
+  }
+
+  /* Hamburger */
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 10;
+  }
+
+  .hamburger {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-primary);
+    position: relative;
+    transition: all var(--transition-fast);
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 2px;
+    background: var(--text-primary);
+    transition: all var(--transition-fast);
+  }
+
+  .hamburger::before { top: -7px; }
+  .hamburger::after { top: 7px; }
+
+  .nav-toggle.active .hamburger {
+    background: transparent;
+  }
+  .nav-toggle.active .hamburger::before {
+    transform: rotate(45deg);
+    top: 0;
+  }
+  .nav-toggle.active .hamburger::after {
+    transform: rotate(-45deg);
+    top: 0;
+  }
+
+  @media (max-width: 768px) {
+    .nav-toggle {
+      display: block;
+    }
+
+    .nav-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: var(--bg-secondary);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      transition: right var(--transition-base);
+      box-shadow: var(--shadow-xl);
+      border-left: 1px solid var(--border-color);
+    }
+
+    .nav-menu.open {
+      right: 0;
+    }
+
+    .nav-link {
+      font-size: 1.1rem;
+      padding: 0.75rem 1.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,213 @@
+---
+// Experience Section
+const experiences = [
+  {
+    title: "Açık Kaynak Projeleri",
+    company: "Kişisel Projeler",
+    period: "2024 — Devam Ediyor",
+    type: "Açık Kaynak",
+    description: [
+      "SecScan: Go ile geliştirilmiş paralel web güvenlik tarama platformu — 7 modül, SSRF koruması",
+      "GoLearn: Uzaktan eğitim API'si — JWT, RBAC, WebSocket sınıfları, Swagger dokümantasyonu",
+      "CampusConnect: NestJS + Go mikroservis mimarisi — HMAC webhook, GraphQL, rate limiting",
+      "Task Manager: MERN stack Kanban uygulaması — drag & drop, alt görevler, önceliklendirme"
+    ],
+    techs: ["Go", "TypeScript", "NestJS", "React", "Docker", "PostgreSQL"]
+  },
+  {
+    title: "Bilgisayar Mühendisliği Öğrencisi",
+    company: "Bitlis Eren Üniversitesi",
+    period: "2024 — Devam Ediyor",
+    type: "Eğitim",
+    description: [
+      "Yazılım geliştirme derslerinde proje bazlı ödevlerde aktif katılım",
+      "Backend geliştirme ve DevOps konularında ders dışı projeler",
+      "Docker, CI/CD pipeline ve container orkestrasyonu üzerine pratik çalışmalar",
+      "Takım projeleri ve kod inceleme süreçlerine katılım"
+    ],
+    techs: ["Algoritmalar", "Veri Yapıları", "Yazılım Mühendisliği", "Veritabanı"]
+  }
+];
+---
+
+<section id="deneyim" class="experience" aria-label="Deneyim">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">// Deneyim</span>
+      <h2 class="section-title">Deneyim & <span class="gradient-text">Süreç</span></h2>
+      <p class="section-subtitle">Projeler ve akademik çalışmalar aracılığıyla edindiğim pratik deneyimler.</p>
+    </div>
+
+    <div class="timeline">
+      {experiences.map((exp, i) => (
+        <div class="timeline-item reveal" style={`--delay: ${i * 0.15}s`}>
+          <div class="timeline-marker">
+            <div class="timeline-dot"></div>
+            {i < experiences.length - 1 && <div class="timeline-line"></div>}
+          </div>
+          
+          <div class="timeline-content card">
+            <div class="timeline-header">
+              <div>
+                <h3 class="timeline-title">{exp.title}</h3>
+                <p class="timeline-company">{exp.company}</p>
+              </div>
+              <div class="timeline-meta">
+                <span class="tag">{exp.type}</span>
+                <span class="timeline-period">{exp.period}</span>
+              </div>
+            </div>
+            
+            <ul class="timeline-description">
+              {exp.description.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+
+            <div class="timeline-techs">
+              {exp.techs.map((tech) => (
+                <span class="tag">{tech}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .experience {
+    background: var(--bg-secondary);
+  }
+
+  .timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 1.5rem;
+    transition-delay: var(--delay);
+  }
+
+  .timeline-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .timeline-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    border: 3px solid var(--bg-secondary);
+    box-shadow: 0 0 0 3px var(--accent-primary);
+    flex-shrink: 0;
+    margin-top: 1.75rem;
+  }
+
+  .timeline-line {
+    width: 2px;
+    flex-grow: 1;
+    background: var(--border-color);
+    margin-top: 0.5rem;
+  }
+
+  .timeline-content {
+    flex-grow: 1;
+  }
+
+  .timeline-content:hover {
+    transform: translateY(-2px);
+  }
+
+  .timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .timeline-title {
+    font-size: 1.125rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .timeline-company {
+    font-size: 0.9375rem;
+    color: var(--accent-primary);
+    font-weight: 500;
+  }
+
+  .timeline-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.375rem;
+  }
+
+  .timeline-period {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--text-tertiary);
+  }
+
+  .timeline-description {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.25rem;
+  }
+
+  .timeline-description li {
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 0.375rem;
+  }
+
+  .timeline-description li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent-primary);
+    font-weight: 600;
+  }
+
+  .timeline-techs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .timeline-techs .tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+  }
+
+  @media (max-width: 640px) {
+    .timeline-marker {
+      display: none;
+    }
+
+    .timeline-header {
+      flex-direction: column;
+    }
+
+    .timeline-meta {
+      align-items: flex-start;
+      flex-direction: row;
+      gap: 0.75rem;
+    }
+  }
+</style>
